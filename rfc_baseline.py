@@ -34,8 +34,11 @@ def etl(path):
     df = pd.read_csv(path)
     print('df shape: ', df.shape)
 
-    df['EJ_isB'] = pd.get_dummies(df['EJ'], drop_first=True)
-    df = df.drop('EJ', axis=1)
+    # one hot encode categorical column 'EJ'
+    temp = pd.get_dummies(df['EJ'], drop_first=True)
+    temp_cols = ['EJ_' + str(temp_col) for temp_col in temp.columns]
+    temp.columns = temp_cols
+    df = pd.concat([df.drop('EJ', axis=1), temp], axis=1)
 
     # simple mean imputation
     for col_name in df.columns:
