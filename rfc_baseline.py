@@ -40,7 +40,7 @@ def etl(path):
     # simple mean imputation
     for col_name in df.columns:
         if col_name not in ['Id', 'Class']:
-            df[col] = df[col_name].apply(lambda x: df[col_name].mean() if pd.isna(x) else x)
+            df[col_name] = df[col_name].apply(lambda x: df[col_name].mean() if pd.isna(x) else x)
 
     return df
 
